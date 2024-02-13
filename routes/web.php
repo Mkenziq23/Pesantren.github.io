@@ -1,9 +1,13 @@
 <?php
 
 use App\Models\Pegawai;
+use App\Models\Penghargaan;
 use Illuminate\Http\Request;
+use App\Models\Riwayat_Jabatan;
+use App\Models\Riwayat_Pendidikan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\ResetController;
@@ -12,17 +16,24 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\ChangePasswordController;
-use App\Http\Controllers\DataKeluargaController;
-use App\Http\Controllers\JabatanPegawaiController;
 use App\Http\Controllers\PenghargaanController;
+use App\Http\Controllers\DataKeluargaController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\JabatanPegawaiController;
+use App\Http\Controllers\PresensiKhususController;
 use App\Http\Controllers\RiwayatJabatanController;
 use App\Http\Controllers\RiwayatMengajarController;
+use App\Http\Controllers\DataAreaPresensiController;
+use App\Http\Controllers\DataKitabController;
+use App\Http\Controllers\DataLiburPresensiController;
+use App\Http\Controllers\JadwalPelajaranController;
+use App\Http\Controllers\JamMasukdanPulangController;
+use App\Http\Controllers\JamPelajaranController;
+use App\Http\Controllers\MatapelajaranController;
 use App\Http\Controllers\RiwayatPendidikanController;
 use App\Http\Controllers\RiwayatSeminardanPelatihanController;
-use App\Models\Penghargaan;
-use App\Models\Riwayat_Jabatan;
-use App\Models\Riwayat_Pendidikan;
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\TahunAjaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +82,41 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
+
+
+    Route::get('kepegawaian/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
+    Route::get('kepegawaian/create', [PegawaiController::class, 'create'])->name('pegawai.create');
+    Route::get('showpegawai/{pegawai:nama_lengkap}', [PegawaiController::class, 'show'])
+        ->name('pegawai.show');
+    Route::post('/kepegawaian/store', [PegawaiController::class, 'store'])->name('pegawai.store');
+    Route::get('editpegawai/{pegawai:nama_lengkap}', [PegawaiController::class, 'edit'])
+        ->name('pegawai.edit');
+    Route::put('editpegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pegawai.update');
+    Route::delete('kepegawaian/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
+    Route::get('kepegawaian/pegawai/export', [PegawaiController::class, 'export'])->name('pegawai.export');
+    Route::post('kepegawaian/pegawai/import', [PegawaiController::class, 'import'])->name('pegawai.import');
+
+
+    Route::resource('kepegawaian/dataareapresensi', DataAreaPresensiController::class)->except(['show']);
+    Route::get('kepegawaian/dataareapresensi/export', [DataAreaPresensiController::class, 'export'])->name('dataareapresensi.export');
+
+    Route::resource('kepegawaian/presensikhusus', PresensiKhususController::class)->except(['show']);
+    Route::get('kepegawaian/presensikhusus/export', [PresensiKhususController::class, 'export'])->name('presensikhusus.export');
+
+    Route::resource('kepegawaian/data-libur-presensi', DataLiburPresensiController::class)->except(['show']);
+    Route::get('kepegawaian/data-libur-presensi/export', [DataLiburPresensiController::class, 'export'])->name('dataliburpresensi.export');
+
+    Route::resource('kepegawaian/jam-masuk-dan-pulang', JamMasukdanPulangController::class)->except(['show']);
+    Route::delete('kepegawaian/jam-masuk-dan-pulang', [JamMasukdanPulangController::class, 'destroyAll'])->name('jam-masuk-dan-pulang.destroyall');
+
+    Route::resource('akademik/tahun-ajaran', TahunAjaranController::class);
+    Route::post('akademik/tahun-ajaran/{id}/activate', [TahunAjaranController::class, 'activateStatus']);
+    Route::resource('akademik/semester', SemesterController::class);
+    Route::resource('akademik/Mata-Pelajaran', MatapelajaranController::class);
+    Route::resource('akademik/Data-Kitab', DataKitabController::class);
+    Route::resource('akademik/Jam-Pelajaran', JamPelajaranController::class);
+    Route::resource('akademik/Jadwal-Pelajaran', JadwalPelajaranController::class);
+
 });
 
 
@@ -101,15 +147,6 @@ Route::get('get-santri', [SantriController::class, 'getSantri'])->name('get-sant
 
 Route::resource('kepegawaian/jabatan', JabatanPegawaiController::class);
 
-Route::get('kepegawaian/pegawai', [PegawaiController::class, 'index'])->name('kepegawaian.pegawai.index');
-Route::get('kepegawaian/create', [PegawaiController::class, 'create'])->name('kepegawaian.create');
-Route::get('showpegawai/{pegawai:nama_lengkap}', [PegawaiController::class, 'show'])
-    ->name('show');
-Route::post('/kepegawaian/store', [PegawaiController::class, 'store'])->name('kepegawaian.store');
-Route::get('editpegawai/{pegawai:nama_lengkap}', [PegawaiController::class, 'edit'])
-    ->name('edit');
-Route::put('editpegawai/{pegawai}', [PegawaiController::class, 'update'])->name('update');
-Route::delete('kepegawaian/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('kepegawaian.pegawai.destroy');
 
 Route::post('showpegawai/{pegawai:nama_lengkap}/riwayatpendidikan', [RiwayatPendidikanController::class, 'riwayatPendidikanStore'])->name('riwayatPendidikanStore');
 Route::post('showpegawai/{pegawai:nama_lengkap}/riwayatpendidikan/{riwayatPendidikan}', [RiwayatPendidikanController::class, 'riwayatPendidikanUpdate'])->name('riwayatPendidikanUpdate');
@@ -123,7 +160,6 @@ Route::post('showpegawai/{pegawai:nama_lengkap}/datakeluarga/{dataKeluarga}', [D
     ->name('dataKeluargaUpdate');
 Route::delete('showpegawai/{pegawai:nama_lengkap}/datakeluarga/{dataKeluarga}', [DataKeluargaController::class, 'destroy'])
     ->name('dataKeluarga.destroy');
-
 
 Route::post('showpegawai/{pegawai:nama_lengkap}/penghargaan', [PenghargaanController::class, 'penghargaanStore'])
     ->name('penghargaanStore');

@@ -161,19 +161,56 @@
                             <span class="nav-link-text ms-1">Jabatan Pegawai</span>
                         </a>
                     </li>
-                    <a href="{{ route('kepegawaian.pegawai.index') }}"
+                    <a href="{{ route('pegawai.index') }}"
                         class="nav-link {{ Request::is('kepegawaian.pegawai') ? 'active' : '' }}">
                         <span class="nav-link-text ms-1">Pegawai</span>
                     </a>
 
                     <li class="nav-item collapse-item">
-                        <a href="#" class="nav-link  {{ Request::is('presensi-pegawai') ? 'active' : '' }} ">
-                            <span class="nav-link-text ms-1">Presensi Pegawai</span>
+                        <a class="nav-link {{ Request::is('presensi-pegawai') ? 'active' : '' }}" role="button"
+                            data-bs-toggle="collapse" href="#presensiDropdown" aria-expanded="false"
+                            aria-controls="presensiDropdown">
+                            <span class="nav-link-text ms-1">Presensi Pegawai </span>
                         </a>
+                        <div class="collapse" id="presensiDropdown">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-link">
+                                    <a class="nav-link" href="">
+                                        <span class="nav-link-text ms-2">Area Presensi Pegawai</span>
+                                    </a>
+                                </li>
+                                <li class="nav-link">
+                                    <a class="nav-link" href="">
+                                        <span class="nav-link-text ms-2">Rekap Presensi di Web</span>
+                                    </a>
+                                </li>
+                                <li class="nav-link">
+                                    <a class="nav-link" href="{{ route('dataareapresensi.index') }}">
+                                        <span class="nav-link-text ms-2">Data Area Presensi</span>
+                                    </a>
+                                </li>
+                                <li class="nav-link">
+                                    <a class="nav-link" href="{{ route('presensikhusus.index') }}">
+                                        <span class="nav-link-text ms-2">Presensi Khusus</span>
+                                    </a>
+                                </li>
+                                <li class="nav-link">
+                                    <a class="nav-link" href="{{ route('data-libur-presensi.index') }}">
+                                        <span class="nav-link-text ms-2">Data Libur Presensi</span>
+                                    </a>
+                                </li>
+                                <li class="nav-link">
+                                    <a class="nav-link" href="{{ route('jam-masuk-dan-pulang.index') }}">
+                                        <span class="nav-link-text ms-2">Jam Masuk & Pulang</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </div>
             </ul>
         </li>
+
 
 
         <li class="nav-item">
@@ -192,14 +229,13 @@
             <ul class="nav nav-pills nav-fill collapse mt-1 flex-column bg-secondary " id="collapseFour"
                 aria-labelledby="headingOne" data-bs-parent="#accordionSidebar">
                 <div class="navbar-nav collapse-horizontal rounded ">
-                    <li class="nav-item collapse-item">
-                        <a href="{{ url('user-profile') }}"
-                            class="nav-link   {{ Request::is('user-profile') ? 'active' : '' }}">
+                    <li class="nav-item">
+                        <a href="{{ route('tahun-ajaran.index') }}" class="nav-link">
                             <span class="nav-link-text ms-1">Tahun Ajaran</span>
                         </a>
                     </li>
                     <li class="nav-item collapse-item">
-                        <a href="#" class="nav-link  {{ Request::is('semester') ? 'active' : '' }} ">
+                        <a href="{{ route('semester.index') }}" class="nav-link">
                             <span class="nav-link-text ms-1">Semester</span>
                         </a>
                     </li>
@@ -219,18 +255,23 @@
                         </a>
                     </li>
                     <li class="nav-item collapse-item">
-                        <a href="#" class="nav-link {{ Request::is('mata-pelajaran') ? 'active' : '' }} ">
+                        <a href="{{ route('Mata-Pelajaran.index') }}" class="nav-link ">
                             <span class="nav-link-text ms-1">Mata Pelajaran</span>
                         </a>
                     </li>
                     <li class="nav-item collapse-item">
-                        <a href="#" class="nav-link {{ Request::is('mata-pelajaran') ? 'active' : '' }} ">
+                        <a href="{{ route('Data-Kitab.index') }}" class="nav-link">
                             <span class="nav-link-text ms-1">Data Kitab</span>
                         </a>
                     </li>
                     <li class="nav-item collapse-item">
-                        <a href="#" class="nav-link {{ Request::is('jam-pelajaran') ? 'active' : '' }}">
+                        <a href="{{ route('Jam-Pelajaran.index') }}" class="nav-link">
                             <span class="nav-link-text ms-1">Jam Pelajaran</span>
+                        </a>
+                    </li>
+                    <li class="nav-item collapse-item">
+                        <a href="{{ route('Jadwal-Pelajaran.index') }}" class="nav-link">
+                            <span class="nav-link-text ms-1">Jadwal Pelajaran</span>
                         </a>
                     </li>
                     <li class="nav-item collapse-item">

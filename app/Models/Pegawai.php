@@ -18,7 +18,7 @@ class Pegawai extends Model
 
 
     public function Jabatan_Pegawai(){
-        return $this->belongsTo(Jabatan_Pegawai::class, 'jabatan_id', 'id');
+    return $this->belongsTo(Jabatan_Pegawai::class, 'jabatan_id');   
     }
     
     public function riwayatpendidikan(){
@@ -42,5 +42,13 @@ class Pegawai extends Model
 
     public function riwayatjabatan(){
         return $this->hasMany(Riwayat_Jabatan::class);
+    }
+
+    public function presensikhusus(){
+    return $this->hasMany(Presensi_Khusus::class);   
+    }
+
+    public function rekappresensidiweb(){
+        return $this->hasMany(RekapPresensidiWeb::class);
     }
 }

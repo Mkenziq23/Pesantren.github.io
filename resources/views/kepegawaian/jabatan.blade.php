@@ -10,7 +10,7 @@
                             <div class="pull-right mb-2">
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#jabatan-modal"
                                     type="button" class="btn bg-gradient-success btn-block mb-3">
-                                    <span>Tambah Jabatan</span>
+                                    <span class="text-dark"><i class="fas fa-plus fa-lg"></i> Tambah</span>
                                 </button>
                             </div>
                             <h6>Jabatan Table</h6>
@@ -93,7 +93,10 @@
                             <label for="unit_sekolah" class="form-label">Unit Sekolah</label>
                             <input type="text" class="form-control" id="unit_sekolah" name="unit_sekolah" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -114,7 +117,8 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_kode_jabatan" class="form-label">Kode Jabatan</label>
-                            <input type="text" class="form-control" id="edit_kode_jabatan" name="kode_jabatan" required>
+                            <input type="text" class="form-control" id="edit_kode_jabatan" name="kode_jabatan"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_nama_jabatan" class="form-label">Nama Jabatan</label>
@@ -126,7 +130,10 @@
                             <input type="text" class="form-control" id="edit_unit_sekolah" name="unit_sekolah"
                                 required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
                     </form>
                 </div>
             </div>

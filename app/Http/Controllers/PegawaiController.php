@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use App\Exports\PegawaiExport;
+use App\Imports\PegawaiImport;
 use App\Models\Jabatan_Pegawai;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+
 
 
 class PegawaiController extends Controller
@@ -15,12 +19,12 @@ class PegawaiController extends Controller
     public function index()
     {   
         $pegawai = Pegawai::with('Jabatan_Pegawai')->get();
-        return view('kepegawaian.pegawai', ['pegawai' => $pegawai, 'tittle' => 'Pegawai Table']);
+        return view('kepegawaian.pegawai.pegawai', ['pegawai' => $pegawai, 'tittle' => 'Pegawai Table']);
     }
 
     public function create()
     {
-        return view('kepegawaian.create', [
+        return view('kepegawaian.pegawai.create', [
             'jabatan' => Jabatan_Pegawai::all(),
             'tittle' => 'Tambah Jabatan'
         ]);
@@ -69,8 +73,12 @@ class PegawaiController extends Controller
         $pegawai->load('riwayatpendidikan');
         $pegawai->load('datakeluarga');
         $pegawai->load('penghargaan');
+        $pegawai->load('riwayatmengajar');
+        $pegawai->load('riwayatseminardanpelatihan');
+        $pegawai->load('riwayatjabatan');
 
-    return view('showpegawai', [
+
+    return view('kepegawaian.pegawai.showpegawai', [
         'pegawai' => $pegawai,
         'tittle' => 'Pegawai Detail',
         'lengthOfService' => $this->formatLengthOfService($pegawai->tanggal_masuk)]);
@@ -80,7 +88,7 @@ class PegawaiController extends Controller
     {
         $jabatan = Jabatan_Pegawai::all(); 
 
-        return view('editpegawai', ['tittle' => 'Edit Pegawai', 'pegawai' => $pegawai, 'jabatan' => $jabatan]);
+        return view('kepegawaian.pegawai.editpegawai', ['tittle' => 'Edit Pegawai', 'pegawai' => $pegawai, 'jabatan' => $jabatan]);
     }
     
 
@@ -148,7 +156,34 @@ class PegawaiController extends Controller
         return $lengthOfService->format('%Y tahun %m bulan %d hari');
     }
 
+    public function export(){
+        return Excel::download(new PegawaiExport, 'Pegawai.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    }
 
-    
-    
+    public function import(Request $request){
+       $request->validate([
+        'file' => 'required|mimes:xlsx,xls',
+    ]);
+
+    $file = $request->file('file');
+    $namaFile = $file->getClientOriginalName();
+
+    // Move the file to the storage path
+    $file->move(storage_path('app/public/DataPegawai'), $namaFile);
+
+    try {
+        // Use storage_path to get the correct absolute path
+        $filePath = storage_path('app/public/DataPegawai/' . $namaFile);
+
+        // Import the data from the Excel file
+        Excel::import(new PegawaiImport, $filePath);
+
+        return redirect()->back()->with('success', 'Data Pegawai berhasil ditambah.');
+    } catch (\Exception $e) {
+        // Handle any exceptions during the import process
+        return redirect()->back()->with('error', 'Error during import: ' . $e->getMessage());
+    }
+    }
+
+
 }

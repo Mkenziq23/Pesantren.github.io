@@ -38,17 +38,17 @@
                                     <h6 class="mb-0">Profile Information</h6>
                                 </div>
                                 <div class="col-md-4 text-end">
-                                    <a href="{{ route('kepegawaian.pegawai.index') }}">
+                                    <a href="{{ route('pegawai.index') }}">
                                         <button class="border-none border-0 bg-transparent" type="button">
                                             <i class="fas fa-arrow-circle-left fs-5 text-primary "></i>
                                         </button>
                                     </a>
-                                    <a href="{{ route('edit', ['pegawai' => $pegawai]) }}">
+                                    <a href="{{ route('pegawai.edit', ['pegawai' => $pegawai]) }}">
                                         <button class="border-none border-0 bg-transparent" type="button">
                                             <i class="fas fa-user-edit fs-5 text-secondary"></i>
                                         </button>
                                     </a>
-                                    <form action="{{ route('kepegawaian.pegawai.destroy', $pegawai->id) }}" method="POST"
+                                    <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
                                         @method('DELETE')
@@ -99,8 +99,9 @@
                             <a href="#" class="btn btn-light" data-toggle="tooltip" data-placement="top"
                                 title="Print">
                                 <i class="fas fa-print fa-2x"></i>
-                                <!-- Menambahkan kelas "fa-lg" untuk membuat ikon lebih besar -->
                             </a>
+
+
                         </div>
                     </div>
                 </div>

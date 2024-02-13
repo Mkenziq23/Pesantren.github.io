@@ -62,7 +62,7 @@
                                             <div class="card card-registration card-registration-2"
                                                 style="border-radius: 15px;">
                                                 <div class="card-body p-0">
-                                                    <form method="POST" action="{{ route('kepegawaian.store') }}"
+                                                    <form method="POST" action="{{ route('pegawai.store') }}"
                                                         enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="row g-0">
@@ -79,7 +79,8 @@
                                                                                 <input type="text" id="nip"
                                                                                     class="form-control form-control-lg @error('nip')is-invalid @enderror"
                                                                                     name="nip" required autofocus
-                                                                                    value="{{ old('nip') }}" />
+                                                                                    value="{{ old('nip') }}"
+                                                                                    placeholder="Masukkan NIP" />
                                                                                 @error('nip')
                                                                                     <div class="text-danger">{{ $message }}
                                                                                     </div>
@@ -96,7 +97,8 @@
                                                                                 <input type="text" id="nama_lengkap"
                                                                                     class="form-control form-control-lg @error('nama_lengkap')is-invalid @enderror"
                                                                                     name="nama_lengkap" required autofocus
-                                                                                    value="{{ old('nama_lengkap') }}" />
+                                                                                    value="{{ old('nama_lengkap') }}"
+                                                                                    placeholder="Masukkan nama lengkap" />
                                                                                 @error('nama_lengkap')
                                                                                     <div class="text-danger">{{ $message }}
                                                                                     </div>
@@ -133,7 +135,7 @@
                                                                         <div class="form-group mb-2 pb-2">
                                                                             <label>Tempat Lahir</label>
                                                                             <textarea class="form-control @error('tempat_lahir')is-invalid @enderror" name="tempat_lahir"
-                                                                                placeholder="Tempat Lahir">{{ old('tempat_lahir') }}</textarea>
+                                                                                placeholder="Masukkan Tempat Lahir">{{ old('tempat_lahir') }}</textarea>
                                                                             @error('tempat_lahir')
                                                                                 <div class="text-danger">{{ $message }}
                                                                                 </div>
@@ -272,8 +274,7 @@
                                                                                 style="font-size: smaller;">Default:</span>
                                                                             <span
                                                                                 style="color: red;">password</span></label>
-                                                                        <input type="password"
-                                                                            class="form-control @error('password')is-invalid @enderror"
+                                                                        <input type="password" class="form-control"
                                                                             name="password" id="password"
                                                                             placeholder="Password" aria-label="Password"
                                                                             aria-describedby="password-addon">

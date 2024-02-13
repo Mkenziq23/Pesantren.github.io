@@ -62,7 +62,8 @@
                                             <div class="card card-registration card-registration-2"
                                                 style="border-radius: 15px;">
                                                 <div class="card-body p-0">
-                                                    <form method="POST" action="{{ route('update', $pegawai->id) }}"
+                                                    <form method="POST"
+                                                        action="{{ route('pegawai.update', $pegawai->id) }}"
                                                         enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
@@ -185,6 +186,7 @@
                                                                     </div>
 
                                                                     <div class="form-group mb-2 pb-2">
+                                                                        <label>Status Kepegawaian</label>
                                                                         <select class="select form-control"
                                                                             name="status_kepegawaian">
                                                                             <option
@@ -244,7 +246,6 @@
                                                                                 {{ $message }}
                                                                             </div>
                                                                         @enderror
-                                                                        <!-- Input tersembunyi untuk menyimpan nilai hash password -->
                                                                         <input type="hidden" name="hashed_password"
                                                                             value="{{ $pegawai->password ?? '' }}">
                                                                     </div>
@@ -368,25 +369,11 @@
             }
         }
 
-        // Attach the previewImage function to the change event of the file input
         document.querySelector('input[type="file"]').addEventListener('change', previewImage);
     </script>
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-                                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-                                    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-                                </script>
-                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-                                    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-                                </script>
-                                -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
